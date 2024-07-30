@@ -159,18 +159,25 @@ SELECT
     id,
     first_name,
     last_name,
-    (CASE WHEN math_score > 80 THEN 1 ELSE 0 END +
-     CASE WHEN history_score > 80 THEN 1 ELSE 0 END +
-     CASE WHEN physics_score > 80 THEN 1 ELSE 0 END +
-     CASE WHEN chemistry_score > 80 THEN 1 ELSE 0 END +
-     CASE WHEN biology_score > 80 THEN 1 ELSE 0 END +
-     CASE WHEN english_score > 80 THEN 1 ELSE 0 END) AS subjects_above_80
-FROM students
-HAVING subjects_above_80 >= 3;
+    subjects_above_80
+FROM (
+    SELECT
+        id,
+        first_name,
+        last_name,
+        (CASE WHEN math_score > 80 THEN 1 ELSE 0 END +
+         CASE WHEN history_score > 80 THEN 1 ELSE 0 END +
+         CASE WHEN physics_score > 80 THEN 1 ELSE 0 END +
+         CASE WHEN chemistry_score > 80 THEN 1 ELSE 0 END +
+         CASE WHEN biology_score > 80 THEN 1 ELSE 0 END +
+         CASE WHEN english_score > 80 THEN 1 ELSE 0 END) AS subjects_above_80
+    FROM students
+) AS subquery
+WHERE subjects_above_80 >= 3;
 
 
 
                                  ## Thank You ##
-    Rushikesh Bhamare_CuvetteDS
+    ## Rushikesh Bhamare_CuvetteDS ##
 
 
